@@ -1,0 +1,23 @@
+{
+  "name": "popcorn-node-capstone",
+  "version": "1.0.0",
+  "description": "Watch videos along with friends, family, or sweethearts, near or far, and chat together.",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "author": "Ro Langam",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.4",
+    "morgan": "^1.9.1"
+  }
+}
