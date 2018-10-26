@@ -20,7 +20,7 @@ app.get('/videos', (req, res) => {
         }
     }, function (err, response, body) {
         if (!err) {
-            console.log(body.items);
+            res.json({response});
         } else {
             console.log(err);
         }
@@ -30,3 +30,5 @@ app.get('/videos', (req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port: ${port}!`);
 });
+
+exports.app = app;
