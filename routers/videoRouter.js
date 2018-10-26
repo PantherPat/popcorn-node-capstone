@@ -1,6 +1,8 @@
+const {YT_key} = require('../config');
+
 const express = require('express');
 const router = express.Router();
-
+const request = require('request');
 
 router.get('/', (req, res) => {
     const id = 'rj7xMBxd5iY';
