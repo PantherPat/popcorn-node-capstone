@@ -1,9 +1,14 @@
-const {YT_key} = require('./config');
+const {YT_key, CLIENT_ORIGIN} = require('./config');
 const express = require('express');
+const cors = require('cors');
 const request = require('request');
 const app = express();
 
 const port = process.env.PORT || 3000;
+
+app.use(cors({
+    origin: CLIENT_ORIGIN
+}));
 
 // send back time to sync up viewers
 
