@@ -21,6 +21,7 @@ Popcorn -- The app allows users to chat and watch a video together.
 * As a user, I should be able to be in sync with the other user so that we can always watch at the same time.
 * As a user, I should be able to add a video to my watch list (create) so that I can access them later.
 * As a user, I should be able to get my list of videos (read) so that I can access what I want easily.
+* As a user, I should be able to pick a video to watch from my list of videos.
 * As a user, I should be able to delete a video from my watch list (delete) so that I can keep my list up-to-date.
 
 
