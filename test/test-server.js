@@ -47,6 +47,23 @@ describe("API", function() {
       });
   });
 
+  //PUT
+  it("should get all videos and status code 201", function() {
+    const time = '120';
+    return chai
+    .request(app)
+    .put(`/videos/34567/${time}`)
+    .send({
+        time
+    })
+    .then(function(res) {
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.include.all.keys('time');
+      });
+  });
+
 //DELETE
 it("should delete video and have status code 204", function() {
     const id = '34567';

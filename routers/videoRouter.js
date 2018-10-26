@@ -14,8 +14,6 @@ router.get('/', (req, res) => {
     res.json({id, thumbnail, desc});
 });
 
-// send back time to sync up viewers
-
 router.get('/:term', (req, res) => {
     const filter = 'items(id,snippet/title,snippet/thumbnails),nextPageToken,pageInfo';
     const term = req.params.term;
@@ -47,6 +45,14 @@ router.post('/:id', (req, res) => {
 
     console.log('adding video!');
     res.status(201).json({id, thumbnail, desc});
+});
+
+// send back time to sync up viewers and store in user data?
+router.put('/:id/:time', (req, res) => {
+    const id = req.params.id;
+    const time = req.params.time;
+    console.log('updating video!');
+    res.status(201).json({time});
 });
 
 router.delete('/:id', (req, res) => {
