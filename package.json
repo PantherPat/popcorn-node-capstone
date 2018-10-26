@@ -4,7 +4,7 @@
   "description": "Watch videos along with friends, family, or sweethearts, near or far, and chat together.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "node server.js"
   },
   "author": "Ro Langam",
