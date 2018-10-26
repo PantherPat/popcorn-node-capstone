@@ -55,7 +55,6 @@ it("should delete video and have status code 204", function() {
     .delete(`/videos/34567`)
     .then(function(res) {
         expect(res).to.have.status(204);
-        
       });
   });
 
