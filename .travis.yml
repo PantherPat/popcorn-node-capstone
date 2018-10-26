@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: MCwJgK0iogqaPbjXZmGJ3uVGzYof50Plf84yiJxRA7QAHtKhxhf/gJXAXumh5HW6NL3v4kBBHO0oW35kQiK7uxCbKJ6/FC9gvgZ9VVZmAQwIamE8rzuSgiE29k8GVXkpkSxQM6+50+udsxgFoWu1HKJDSHadmtKzXGxlrxoDxX+IX68NzP63exSNJmR6pYGT2fFSyIRQ8wII7e9ZfnnswyDs2zHCbf54pciiEjJ2ku0iYOr4wNbxU8Dj9xwa9DglUA1id9naTLyPozmJckLEF8BEci67CgWmw2PQ3Pxq3PnP2pe484o9nbb0ZARN0tEuIFqekFvfmHgmOkcCbL6eseRIVkHMbK40v3ICRMHTvXj5VsYfh7Ws+sBF9ML5Y4R9sGglU+B0io8j1JUDLO/aJDU/DRqUvNiVKTWanXbzQwIXcdsSl1OzWXRbZWT8a89gyJDswaUyY5VNGQ1c8WC3U7d/m1X3TPYQJahlDeqwKWwHJGy4M+zChGbMtEu868L0+dU++Iqodz6bSjlyqpoUgdEoUNtsGBsQuKd0h+hdgCTJYUbCh6Yji/bLAEZFmUBC/TL4mARMWm5mQTydK9X1VVXO0vK/CJa/3AwQZSmR0xxkFA9KbPjhhyYlY8aEVCnsJiwpC88gHpLzTAhytMQ0DZsUy520Yx6FiEiPkmq2N6w=
+  app: popcorn-capstone-node
+  on:
+    repo: azureowl/popcorn-node-capstone
