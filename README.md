@@ -1,6 +1,8 @@
 ## Popcorn | Thinkful Node-React-Redux Capstone
 Watch videos along with friends, family, or sweethearts, near or far, and chat together.
 
+Go to Popcorn client-side [Visit](https://github.com/azureowl/popcorn-node-capstone-react)
+
 #### Screenshots
 
 
