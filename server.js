@@ -14,9 +14,7 @@ app.use('/videos', videoRouter);
 app.use(express.json());
 app.use(morgan('common'));
 
-app.use(cors({
-    origin: CLIENT_ORIGIN
-}));
+app.use(cors());
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}!`);
