@@ -2,11 +2,12 @@ const {YT_key, CLIENT_ORIGIN} = require('./config');
 const videoRouter = require('./routers/videoRouter');
 const express = require('express');
 const cors = require('cors');
+const app = express();
+
 app.use(cors());
 const morgan = require('morgan');
 
 
-const app = express();
 
 const port = process.env.PORT || 3000;
 
