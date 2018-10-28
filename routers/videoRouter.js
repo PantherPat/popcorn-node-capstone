@@ -24,7 +24,8 @@ router.get('/:term', (req, res) => {
             part: 'snippet',
             q: term,
             key: YT_key,
-            fields: filter
+            fields: filter,
+            maxResults: 25
         }
     }, function (err, response, body) {
         if (!err && response.statusCode === 200) {

@@ -7,8 +7,6 @@ const app = express();
 app.use(cors());
 const morgan = require('morgan');
 
-
-
 const port = process.env.PORT || 3000;
 
 const {User} = require("./models/users");
