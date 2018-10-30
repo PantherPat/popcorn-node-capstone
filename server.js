@@ -9,7 +9,7 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
 const morgan = require('morgan');
 const mongoose = require('mongoose');
