@@ -1,4 +1,6 @@
+const { YT_key } = require('../config');
 const { app, runServer, closeServer } = require("../server");
+
 // add testDB later
 const chai = require("chai");
 const chaiHTTP = require("chai-http");
@@ -8,14 +10,13 @@ chai.use(chaiHTTP);
 
 describe("API", function() {
 // GET
-  it("should send back search results", function() {
+ it("should send back search results", function() {
     const term = "eighties";
     return chai
     .request(app)
-    .get(`/videos/${term}`)
+    .get(`/videos`)
+    .query({ part: 'snippet', q: term, key: YT_key, maxResults: 2 })
     .then(function(res) {
-        console.log(`/videos/${term}`);
-        console.log(res);
         expect(res).to.have.status(200);
         expect(res).to.be.json;
       });
