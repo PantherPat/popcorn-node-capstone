@@ -13,6 +13,7 @@ describe("API", function() {
     .request(app)
     .get(`/videos/${term}`)
     .then(function(res) {
+        console.log(`/videos/${term}`);
         expect(res).to.have.status(200);
         expect(res).to.be.json;
       });
