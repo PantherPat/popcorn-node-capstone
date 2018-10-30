@@ -1,4 +1,4 @@
-const {PORT, DB_URL, TEST_DB_URL, YT_key, CLIENT_ORIGIN} = require('./config');
+const { PORT, DB_URL, TEST_DB_URL, YT_key, CLIENT_ORIGIN } = require('./config');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -6,14 +6,21 @@ const app = express();
 app.use(cors());
 app.options('*', cors());
 
-const videoRouter = require('./routers/videoRouter');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const passport = require('passport');
+require('./passport');
+
+const videoRouter = require('./routers/videoRouter');
+const auth = require('./routers/auth');
+const userRouter = require('./routers/userRouter');
 
 app.use(express.json());
 app.use(morgan('common'));
 app.use('/videos', videoRouter);
+app.use('/auth', auth);
+app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
 
 let server;
 
@@ -46,7 +53,19 @@ function runServer(databaseUrl, port = PORT) {
     });
 }
 
-function closeServer() {}
+function closeServer() {
+    return mongoose.disconnect().then(() => {
+        return new Promise((resolve, reject) => {
+            console.log('Closing server');
+            server.close(err => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        });
+    });
+}
 
 if (require.main === module) {
     console.log(DB_URL, PORT);
