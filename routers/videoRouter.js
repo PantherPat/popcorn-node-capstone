@@ -25,7 +25,8 @@ router.get('/:term', (req, res) => {
             q: term,
             key: YT_key,
             fields: filter,
-            maxResults: 25
+            maxResults: 25,
+            type: 'video'
         }
     }, function (err, response, body) {
         if (!err && response.statusCode === 200) {
