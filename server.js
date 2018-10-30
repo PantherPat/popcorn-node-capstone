@@ -1,5 +1,10 @@
 const {PORT, DB_URL, TEST_DB_URL, YT_key, CLIENT_ORIGIN} = require('./config');
 const express = require('express');
+const cors = require('cors');
+const app = express();
+app.use(cors());
+
+
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -10,12 +15,9 @@ const videoRouter = require('./routers/videoRouter');
 const auth = require('./routers/auth');
 const userRouter = require('./routers/userRouter');
 
-const cors = require('cors');
-const app = express();
-app.use(cors());
 
-app.use(morgan('common'));
 app.use(express.json());
+app.use(morgan('common'));
 app.use('/videos', videoRouter);
 app.use('/auth', auth);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
