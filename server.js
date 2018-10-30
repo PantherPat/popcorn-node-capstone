@@ -2,7 +2,13 @@ const {PORT, DB_URL, TEST_DB_URL, YT_key, CLIENT_ORIGIN} = require('./config');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-app.use(cors());
+
+var corsOptions = {
+  origin: 'https://popcorn-capstone.herokuapp.com',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.options('*', cors(corsOptions));
 
 const morgan = require('morgan');
 const mongoose = require('mongoose');
