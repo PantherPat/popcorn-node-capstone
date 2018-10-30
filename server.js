@@ -25,7 +25,6 @@ app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
 let server;
 
 function runServer(databaseUrl, port=PORT) {
-  console.log(port);
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, {useNewUrlParser: true}, err => {
         if (err) {
