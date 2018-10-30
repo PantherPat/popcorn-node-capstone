@@ -15,9 +15,47 @@ app.use(express.json());
 app.use(morgan('common'));
 app.use('/videos', videoRouter);
 
+let server;
 
-app.listen(port=PORT, () => {
-    console.log(`Listening on port: ${port}!`);
-});
+function runServer(databaseUrl, port = PORT) {
+    console.log(port);
+    return new Promise((resolve, reject) => {
+        mongoose
+            .connect(
+                databaseUrl, {
+                    useNewUrlParser: true
+                },
+                err => {
+                    if (err) {
+                        return reject("Something went wrong");
+                    }
+                    server = app
+                        .listen(port, () => {
+                            console.log(`Your app is listening on port ${port}!`);
+                            resolve();
+                        })
+                        .on("error", err => {
+                            mongoose.disconnect();
+                            reject("Unable to connect to port. Disconnecting Mongoose.");
+                        });
+                }
+            )
+            .catch(err => {
+                console.log("Unable to connect to Mongoose.");
+            });
+    });
+}
+
+function closeServer() {}
+
+if (require.main === module) {
+    console.log(DB_URL, PORT);
+    runServer(DB_URL, PORT).catch(err => {
+        console.log(`In ${require.main.filename}`);
+        console.error(err);
+    });
+}
 
 exports.app = app;
+exports.runServer = runServer;
+exports.closeServer = closeServer;
