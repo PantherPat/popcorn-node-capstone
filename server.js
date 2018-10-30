@@ -4,7 +4,6 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -14,7 +13,6 @@ mongoose.Promise = global.Promise;
 const videoRouter = require('./routers/videoRouter');
 const auth = require('./routers/auth');
 const userRouter = require('./routers/userRouter');
-
 
 app.use(express.json());
 app.use(morgan('common'));
