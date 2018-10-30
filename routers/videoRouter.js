@@ -33,7 +33,7 @@ router.get('/:term', (req, res) => {
             res.json({response});
         } else {
             console.log(err);
-            res.json(err);
+            res.status(400).json(err);
         }
     });
 });

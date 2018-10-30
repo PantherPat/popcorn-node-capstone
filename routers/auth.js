@@ -23,7 +23,7 @@ router.post('/signup', (req, res) => {
   })
   .catch(err => {
     if (err.code === 11000) {
-        return res.json({error: "User already exists."});
+        return res.status(400).json({error: "User already exists."});
     }
   });
 });
@@ -39,7 +39,7 @@ router.post("/login", function (req, res, next) {
 
     req.login(user, { session: false }, err => {
       if (err) {
-        res.send(err);
+        res.status(400).json({err});
       }
       const body = { _id : user._id, email : user.email };
       const token = jwt.sign(body, JWT_SECRET);
