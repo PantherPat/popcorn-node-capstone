@@ -8,15 +8,15 @@ app.options('*', cors());
 
 const videoRouter = require('./routers/videoRouter');
 const morgan = require('morgan');
-
-const port = process.env.PORT || 3000;
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 app.use(express.json());
 app.use(morgan('common'));
 app.use('/videos', videoRouter);
 
 
-app.listen(port, () => {
+app.listen(port=PORT, () => {
     console.log(`Listening on port: ${port}!`);
 });
 
