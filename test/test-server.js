@@ -33,13 +33,13 @@ describe("API", function() {
   });
 
 //POST
-  it("should get all videos and status code 201", function() {
+  it("should post a video and status code 201", function() {
     const id = '34567';
     const thumbnail = "image.png";
     const desc = "lorem ipsum";
     return chai
     .request(app)
-    .post(`/videos/34567`)
+    .post(`/videos`)
     .send({
         id, thumbnail, desc
     })

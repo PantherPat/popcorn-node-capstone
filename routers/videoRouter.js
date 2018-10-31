@@ -40,8 +40,8 @@ router.get('/:term', (req, res) => {
 });
 
 // Add video to watchlist collection
-router.post('/:id', (req, res) => {
-    const id = req.params.id;
+router.post('/', (req, res) => {
+    const id = "1234";
     const thumbnail = "image.png";
     const desc = "lorem ipsum";
 
