@@ -41,12 +41,10 @@ router.get('/:term', (req, res) => {
 
 // Add video to watchlist collection
 router.post('/', (req, res) => {
-    const id = "1234";
-    const thumbnail = "image.png";
-    const desc = "lorem ipsum";
-
     console.log('adding video!');
-    res.status(201).json({id, thumbnail, desc});
+    console.log(req.body);
+
+    res.status(201).json(req.body);
 });
 
 // send back time to sync up viewers and store in user data?
