@@ -1,5 +1,6 @@
 const { YT_key } = require("../config");
 const { Videos } = require("../models/videos");
+var ObjectId = require('mongodb').ObjectID;
 
 const express = require("express");
 const router = express.Router();
@@ -46,19 +47,17 @@ router.get("/:term", (req, res) => {
 
 // Add video to watchlist collection
 router.post("/", (req, res) => {
-  console.log(req.body);
+
   const videoObj = {
-    videoID: req.body.id,
-    title: req.body.title,
-    thumbnail: req.body.thumbnail
+    videoID: req.body.video.id,
+    title: req.body.video.title,
+    thumbnail: req.body.video.thumbnail,
+    user: req.body.id
   };
 
-  Videos.findOne({
-    videoID: req.body.id
-  })
+  Videos.find({user: ObjectId(videoObj.user), videoID: videoObj.videoID})
     .count()
     .then(count => {
-      console.log(count);
       if (count === 0) {
         Videos.create(videoObj)
           .then(video => {

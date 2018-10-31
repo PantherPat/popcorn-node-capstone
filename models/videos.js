@@ -14,6 +14,10 @@ const videoSchema = new mongoose.Schema({
     },
     time: {
         type: Number
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
