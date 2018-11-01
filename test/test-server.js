@@ -33,23 +33,25 @@ describe("API", function() {
   });
 
 //POST
-  it("should post a video and status code 201", function() {
-    const id = '34567';
-    const thumbnail = "image.png";
-    const desc = "lorem ipsum";
-    return chai
-    .request(app)
-    .post(`/videos`)
-    .send({
-        id, thumbnail, desc
-    })
-    .then(function(res) {
-        expect(res).to.have.status(201);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-        expect(res.body).to.include.all.keys('id','thumbnail','desc');
-      });
-  });
+//   it("should post a video and status code 201", function() {
+//     const videoID = '1234';
+//     const title = 'Test title';
+//     const thumbnail = 'test.png';
+//     const user = 'Test Person1';
+
+//     return chai
+//     .request(app)
+//     .post(`/videos`)
+//     .send({
+//         videoID, title, thumbnail, user
+//     })
+//     .then(function(res) {
+//         expect(res).to.have.status(201);
+//         expect(res).to.be.json;
+//         expect(res.body).to.be.an('object');
+//         expect(res.body).to.include.all.keys('videoID', 'title', 'thumbnail', 'user');
+//       });
+//   });
 
   //PUT
   it("should get all videos and status code 201", function() {
