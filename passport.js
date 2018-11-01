@@ -1,5 +1,5 @@
 const { User } = require("./models/users");
-var ObjectId = require('mongodb').ObjectID;
+var ObjectId = require("mongodb").ObjectID;
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -10,12 +10,10 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const { JWT_SECRET } = require("./config");
 const opts = {};
 
-
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = JWT_SECRET;
 
-passport.use(
-  new JWTStrategy(opts, (jwtPayload, callback) => {
+passport.use(new JWTStrategy(opts, (jwtPayload, callback) => {
     const id = jwtPayload._id;
     return User.find(ObjectId(id))
       .then(user => {
@@ -27,32 +25,33 @@ passport.use(
   })
 );
 
-// Passport middleware will handle user login
+// Setting up and use passport local strategy
 passport.use("login", new LocalStrategy({
       usernameField: "email",
       passwordField: "password"
     },
-    function(email, password, done) {
-      console.log("passport.js, line 34");
-      return User.findOne({ email: email })
-        .then(user => {
-          console.log(user.username, "passport.js, line 37");
-          const validated = user.validatePassword(password);
-          validated.then(isValid => {
-            // Validate password matches with the corresponding hash stored in the database
-            if (!isValid) {
-              console.log('wrong!, line 48 passport.js');
-              return done(null, false, { message: "Incorrect password." });
-            }
-            console.log("passport.js line 50", user);
-            //Send the user information to the next middleware
-            return done(null, user);
-          });
-        })
-        .catch(err => {
+    (email, password, done) => {
+      return (
+        User.findOne({ email: email })
+          // Find user unique email and verify password
+          .then(user => {
+            // Validate password matches with the corresponding hash
+            const validated = user.validatePassword(password);
+            validated.then(isValid => {
+              // done invoked with false instead of a user to indicate an authentication failure.
+              if (!isValid) {
+                return done(null, false, { message: "Incorrect password." });
+              }
+
+              //Send the user information to the next middleware
+              return done(null, user);
+            });
+          })
           // No user found in the database
-          return done(null, false, { message: "User does not exist." });
-        });
+          .catch(err => {
+            return done(null, false, { message: "User does not exist." });
+          })
+      );
     }
   )
 );

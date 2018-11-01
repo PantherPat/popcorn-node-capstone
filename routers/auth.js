@@ -28,24 +28,20 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/login", function(req, res, next) {
-  console.log(req.body, "line 32 auth.js");
   passport.authenticate("login", { session: false }, (err, user, info) => {
     if (err || !user) {
-      return res.status(400).json({
-        message: info.message,
-        user: user
-      });
+      res.statusMessage = info.message;
+      return res.status(400).json(res.statusMessage);
     }
+
     req.login(user, { session: false }, err => {
       if (err) {
-        res.status(400).json({ err });
+        res.status(400).json(err);
       }
-      const body = {
-        _id: user._id,
-        email: user.email,
-        username: user.username,
-        test: 'HOWDY!'
-      };
+
+      const body = user.serialize();
+      console.log('Auth.js: line 43', body);
+      // Generate jwt with the contents of user object
       const token = jwt.sign(body, JWT_SECRET);
       return res.json({ token });
     });

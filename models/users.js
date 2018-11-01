@@ -22,25 +22,26 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-// pre-hook to hash password
+// Pre-hook to hash password
 UserSchema.pre("save", async function(next) {
-  console.log(this, "users.js, line 26");
-
   const hash = await bcrypt.hash(this.password, 10);
   this.password = hash;
-  // return back to route /signup
   next();
 });
 
+UserSchema.methods.serialize = function () {
+  return {
+    _id: this._id,
+    email: this.email,
+    username: this.username
+  };
+};
+
 UserSchema.methods.validatePassword = async function (password) {
-    console.log("users.js, line 35");
     const user = this;
-    // wait for the Promise to resolve
     const compare = await bcrypt.compare(password, user.password);
     return compare;
 };
-
-// when we call validatePassword, we can chain .catch()
 
 const User = mongoose.model("User", UserSchema);
 
