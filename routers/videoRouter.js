@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.get("/:term", (req, res) => {
+router.get("/search/:term", (req, res) => {
   const filter = "items(id,snippet/title,snippet/thumbnails),nextPageToken,pageInfo";
   const term = req.params.term;
   console.log(term);
