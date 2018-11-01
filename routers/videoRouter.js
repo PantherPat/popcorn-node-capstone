@@ -6,14 +6,19 @@ const express = require("express");
 const router = express.Router();
 const request = require("request");
 
-router.get("/", (req, res) => {
-  const id = "rj7xMBxd5iY";
-  const thumbnail = "image.png";
-  const desc = "lorem ipsum";
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
 
-  console.log("getting all videos!");
-  // send back watchlist and generate with thumbnail and id
-  res.json({id,thumbnail,desc});
+  Videos.find({user: ObjectId(id)})
+    .then(videos => {
+      if (videos.length > 0) {
+        res.json({videos: videos});
+      }
+    })
+    .catch(err => {
+      console.log('Err: ', err);
+      res.status(400).json(err);
+    });
 });
 
 router.get("/:term", (req, res) => {
