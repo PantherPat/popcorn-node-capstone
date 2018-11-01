@@ -31,7 +31,7 @@ UserSchema.pre("save", async function(next) {
 
 UserSchema.methods.serialize = function () {
   return {
-    _id: this._id,
+    id: this._id,
     email: this.email,
     username: this.username
   };
