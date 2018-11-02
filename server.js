@@ -2,6 +2,8 @@ const { PORT, DB_URL, TEST_DB_URL, YT_key, CLIENT_ORIGIN } = require('./config')
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.use(cors());
 app.options('*', cors());
@@ -39,6 +41,14 @@ function runServer(databaseUrl, port = PORT) {
                     server = app
                         .listen(port, () => {
                             console.log(`Your app is listening on port ${port}!`);
+                            io.on('connect', function(socket) {
+                                socket.on('chat message', function(msg) {
+                                  io.emit('chat message', msg);
+                                });
+                            });
+                            http.listen(5000, function() {
+                                console.log('listening on 3000');
+                              });
                             resolve();
                         })
                         .on("error", err => {
