@@ -88,9 +88,10 @@ router.put("/:id/:time", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-
   console.log("deleting video!");
-  res.status(204).end();
+  Videos.findByIdAndRemove(id)
+    .then(video => res.status(204).end())
+    .catch(err => res.status(500).json(err));
 });
 
 module.exports = router;
