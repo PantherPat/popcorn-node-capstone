@@ -78,45 +78,11 @@ if (require.main === module) {
     });
 }
 
-
 io.on('connection', (socket) => {
-    // console.log(socket.id);
+    socket.on('SEND_MESSAGE', function(data){
+        io.emit('RECEIVE_MESSAGE', data);
+    });
 });
-
-// var usersArray = [];
-
-// function sendMessage(msg) {
-//     var user = {
-//         msg: msg
-//     }
-
-//   return user.msg;
-// }
-
-// app.post('/user/chat/:text', (req, res) => {
-//     console.log('hi');
-//     console.log(req.params)
-//     sendMessage(req.params.text);
-//     res.json({msg: req.params.text});
-// });
-
-// app.post('/user/chat/:user', (req, res) => {
-//     console.log('hi');
-//     console.log(req.params)
-//     //send user back
-// });
-
-// io.on('connect', function (socket) {
-//     socket.on('sendMessage', function (username) {
-//         socket.userID = sendMessage(username);
-//         io.emit('updateChat', usersArray)
-//     });
-
-//     socket.on('addUser', function (username) {
-//         socket.userID = sendMessage(username);
-//         io.emit('updateChat', usersArray)
-//     });
-// });
 
 exports.app = app;
 exports.runServer = runServer;
