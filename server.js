@@ -7,8 +7,6 @@ const app = express();
 var serverSocket = http.Server(app);
 var io = socket_io(serverSocket);
 
-
-
 app.use(cors());
 app.options('*', cors());
 
@@ -44,11 +42,6 @@ function runServer(databaseUrl, port = PORT) {
                     }
                     server = serverSocket.listen(port, () => {
                             console.log(`Your app is listening on port ${port}!`);
-                            io.on('connect', function(socket) {
-                                socket.on('chat message', function(msg) {
-                                  io.emit('chat message', msg);
-                                });
-                            });
                             resolve();
                         })
                         .on("error", err => {
@@ -85,32 +78,45 @@ if (require.main === module) {
     });
 }
 
-var usersArray = [];
 
-function sendMessage(msg) {
-    var user = {
-        msg: msg
-    }
-
-  return user.msg;
-}
-
-app.post('/user/chat', (req, res) => {
-    io.on('connect', function (socket) {
-        console.log('connected!');
-        socket.on('chat message', function(msg) {
-            console.log(`connected here! please! ${msg}`);
-            io.emit('chat message', msg);
-        });
-        // closing page disconnects
-        socket.on('disconnect', function(){
-            console.log('user disconnected');
-        });
-    });
-
-    res.json({msg: req.params.text});
+io.on('connection', (socket) => {
+    // console.log(socket.id);
 });
 
+// var usersArray = [];
+
+// function sendMessage(msg) {
+//     var user = {
+//         msg: msg
+//     }
+
+//   return user.msg;
+// }
+
+// app.post('/user/chat/:text', (req, res) => {
+//     console.log('hi');
+//     console.log(req.params)
+//     sendMessage(req.params.text);
+//     res.json({msg: req.params.text});
+// });
+
+// app.post('/user/chat/:user', (req, res) => {
+//     console.log('hi');
+//     console.log(req.params)
+//     //send user back
+// });
+
+// io.on('connect', function (socket) {
+//     socket.on('sendMessage', function (username) {
+//         socket.userID = sendMessage(username);
+//         io.emit('updateChat', usersArray)
+//     });
+
+//     socket.on('addUser', function (username) {
+//         socket.userID = sendMessage(username);
+//         io.emit('updateChat', usersArray)
+//     });
+// });
 
 exports.app = app;
 exports.runServer = runServer;
