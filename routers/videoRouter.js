@@ -13,6 +13,8 @@ router.get("/:id", (req, res) => {
     .then(videos => {
       if (videos.length > 0) {
         res.json({videos: videos});
+      } else {
+        res.json({videos: []});
       }
     })
     .catch(err => {
