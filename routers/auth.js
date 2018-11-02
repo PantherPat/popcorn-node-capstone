@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 
 router.post("/signup", (req, res) => {
-  console.log(req.body, "auth.js, line 11");
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
@@ -17,8 +16,10 @@ router.post("/signup", (req, res) => {
     password: req.body.password
   })
     .then(user => {
-      console.log("returned user is: ", user);
-      return res.json({ user: user.username });
+      const body = user.serialize();
+      // Generate jwt with the contents of user object
+      const token = jwt.sign(body, JWT_SECRET);
+      return res.json({ token });
     })
     .catch(err => {
       if (err.code === 11000) {
@@ -40,7 +41,6 @@ router.post("/login", function(req, res, next) {
       }
 
       const body = user.serialize();
-      console.log('Auth.js: line 43', body);
       // Generate jwt with the contents of user object
       const token = jwt.sign(body, JWT_SECRET);
       return res.json({ token });
