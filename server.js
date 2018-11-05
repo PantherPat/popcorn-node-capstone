@@ -18,13 +18,11 @@ require('./passport');
 
 const videoRouter = require('./routers/videoRouter');
 const auth = require('./routers/auth');
-const userRouter = require('./routers/userRouter');
 
 app.use(express.json());
 app.use(morgan('common'));
 app.use('/videos', passport.authenticate('jwt', {session: false}), videoRouter);
 app.use('/auth', auth);
-app.use('/user', passport.authenticate('jwt', {session: false}), userRouter);
 
 let server;
 
