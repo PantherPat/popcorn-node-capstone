@@ -77,8 +77,14 @@ if (require.main === module) {
 }
 
 io.on('connection', (socket) => {
+
     socket.on('SEND_MESSAGE', function(data){
         io.emit('RECEIVE_MESSAGE', data);
+    });
+
+    socket.on('USER_LOGGEDIN', function(user) {
+        console.log(user);
+        io.emit('LOG_USER', user);
     });
 });
 
