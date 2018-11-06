@@ -54,7 +54,7 @@ router.get("/search/:term", (req, res) => {
 
 // Add video to watchlist collection
 router.post("/", (req, res) => {
-
+  console.log('posting');
   const videoObj = {
     videoID: req.body.video.id,
     title: req.body.video.title,
@@ -73,6 +73,8 @@ router.post("/", (req, res) => {
           .catch(err => {
             console.log("videoRouter.js", err);
           });
+      } if (count === 1) {
+        res.json({msg: 'Not added. Already in watchlist.'});
       }
     })
     .catch(err => {
