@@ -83,7 +83,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('USER_LOGGEDIN', function(user) {
-        console.log(user);
         io.emit('LOG_USER', user);
     });
 });

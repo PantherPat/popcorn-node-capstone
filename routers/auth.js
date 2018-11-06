@@ -1,4 +1,5 @@
 const { User } = require("../models/users");
+const { Logged } = require("../models/userLoggedIn");
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -47,6 +48,44 @@ router.post("/login", function(req, res, next) {
       return res.json({ token });
     });
   })(req, res);
+});
+
+router.get("/userLoggedIn", function(req, res) {
+  Logged.find({})
+    .then(users => {
+      res.json({loggedIn: users});
+    })
+    .catch(err => {
+      return res.status(400).json(res.statusMessage);
+    });
+});
+
+router.post("/userLoggedIn", function(req, res) {
+  Logged.create({
+    usersLoggedIn: req.body.user
+  })
+  .then(user => {
+    Logged.find({})
+      .then(users => {
+        res.json({loggedIn: users});
+      });
+  })
+  .catch(err => {
+    return res.status(400).json(res.statusMessage);
+  });
+});
+
+router.delete("/userLoggedIn", function(req, res) {
+  console.log(req.body.user);
+  Logged.deleteMany({
+    usersLoggedIn: req.body.user
+  })
+  .then(user => {
+    console.log(`Deleted ${user}!`);
+  })
+  .catch(err => {
+    return res.status(400).json(res.statusMessage);
+  });
 });
 
 module.exports = router;
